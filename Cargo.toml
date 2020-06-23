@@ -2,5 +2,9 @@
 
 members = [
     "imxrt-ral",
-    "imxrt-hal"
+    "imxrt-hal",
+]
+
+exclude = [
+    "t4-examples",
 ]

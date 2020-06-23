@@ -1,0 +1,40 @@
+[package]
+name = "t4-examples"
+version = "0.1.0"
+authors = ["Ian McIntyre <ianpmcintyre@gmail.com>"]
+edition = "2018"
+description = "imxrt-hal examples that execute on the Teensy 4"
+publish = false
+
+[dependencies]
+cortex-m = "0.6.2"
+cortex-m-rtic = "0.5.3"
+embedded-hal = "0.2.4"
+panic-halt = "0.2.0"
+
+[dependencies.imxrt-hal]
+version = "0.3.0"
+path = "../imxrt-hal"
+features = ["imxrt1062", "rt"]
+
+[dependencies.teensy4-fcb]
+git = "https://github.com/mciantyre/teensy4-rs"
+branch = "proto/rtic"
+
+# See commit 141620b in the teensy4-rs project for more information.
+#
+# This is actually the teensy4-rt crate, just with a different name. This
+# replaces the cortex-m-rtic's dependency on cortex-m-rt with our custom
+# runtime crate.
+#
+# Alternative approach: fork RTIC, and specify the teensy4-rt crate as the
+# dependency.
+[patch.crates-io.cortex-m-rt]
+git = "https://github.com/mciantyre/teensy4-rs"
+branch = "proto/rtic"
+
+[[bin]]
+name = "rtic"
+path = "src/rtic.rs"
+bench = false
+test = false
